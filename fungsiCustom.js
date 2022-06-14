@@ -22,50 +22,40 @@ let modifyFile3 = (val) => {
 const bacaData = (fnCallback) => {
   const arrayString = [];
   const pushArray = (data) => arrayString.push(data);
-  fs.readFile(
-    file1,
-    {
-      encoding: 'utf8',
-    },
-    (err, dataYangDibaca) => {
-      if (err) {
-        return console.log('Ada terjadi error: ' + err);
-      }
-      const arrayOfObject = JSON.parse(dataYangDibaca);
-      pushArray(arrayOfObject.message.split(' ')[1]);
+  fs.readFile(file1, 'utf8', (err, data1) => {
 
+    if (err) {
+      return console.log('Error data 1' + err);
     }
-  );
 
-  fs.readFile(
-    file2,
-    {
-      encoding: 'utf8',
-    },
-    (err, dataYangDibaca) => {
+    fs.readFile(file2, 'utf8', (err, data2) => {
+
       if (err) {
-        return console.log('Ada terjadi error: ' + err);
+        return console.log('Error data 2' + err);
       }
-      const arrayOfObject = JSON.parse(dataYangDibaca);
-      pushArray(arrayOfObject[0].message.split(' ')[1]);
 
-    }
-  );
 
-  fs.readFile(
-    file3,
-    {
-      encoding: 'utf8',
-    },
-    (err, dataYangDibaca) => {
-      if (err) {
-        return console.log('Ada terjadi error: ' + err);
-      }
-      const arrayOfObject = JSON.parse(dataYangDibaca);
-      pushArray(arrayOfObject[0].data.message.split(' ')[1]);
-      fnCallback(null, arrayString);
-    }
-  );
+
+      fs.readFile(file3, (err, data3) => {
+        if (err) {
+          return console.log('Error data 3' + err);
+        }
+
+
+        let jsonFile1 = JSON.parse(data1);
+        let jsonFile2 = JSON.parse(data2);
+        let jsonFile3 = JSON.parse(data3);
+
+
+        pushArray(jsonFile1.message.split(' ')[1]);
+        pushArray(jsonFile2[0].message.split(' ')[1]);
+        pushArray(jsonFile3[0].data.message.split(' ')[1]);
+
+        fnCallback(null, arrayString);
+
+      });
+    });
+  });
 
 
 
