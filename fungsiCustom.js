@@ -1,5 +1,5 @@
 // TODO: import module bila dibutuhkan di sini
-
+const fs = require("fs");
 // ! JANGAN DIMODIFIKASI
 let file1 = "./data1.json";
 let file2 = "./data2.json";
@@ -18,7 +18,58 @@ let modifyFile3 = (val) => {
 
 // TODO: Kerjakan bacaData
 // gunakan variabel file1, file2, dan file3
-const bacaData = null;
+
+const bacaData = (fnCallback) => {
+  const arrayString = [];
+  const pushArray = (data) => arrayString.push(data);
+  fs.readFile(
+    file1,
+    {
+      encoding: 'utf8',
+    },
+    (err, dataYangDibaca) => {
+      if (err) {
+        return console.log('Ada terjadi error: ' + err);
+      }
+      const arrayOfObject = JSON.parse(dataYangDibaca);
+      pushArray(arrayOfObject.message.split(' ')[1]);
+
+    }
+  );
+
+  fs.readFile(
+    file2,
+    {
+      encoding: 'utf8',
+    },
+    (err, dataYangDibaca) => {
+      if (err) {
+        return console.log('Ada terjadi error: ' + err);
+      }
+      const arrayOfObject = JSON.parse(dataYangDibaca);
+      pushArray(arrayOfObject[0].message.split(' ')[1]);
+
+    }
+  );
+
+  fs.readFile(
+    file3,
+    {
+      encoding: 'utf8',
+    },
+    (err, dataYangDibaca) => {
+      if (err) {
+        return console.log('Ada terjadi error: ' + err);
+      }
+      const arrayOfObject = JSON.parse(dataYangDibaca);
+      pushArray(arrayOfObject[0].data.message.split(' ')[1]);
+    }
+  );
+
+
+
+  fnCallback(null, arrayString);
+};
 
 // ! JANGAN DIMODIFIKASI
 module.exports = {
