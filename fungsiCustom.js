@@ -63,12 +63,13 @@ const bacaData = (fnCallback) => {
       }
       const arrayOfObject = JSON.parse(dataYangDibaca);
       pushArray(arrayOfObject[0].data.message.split(' ')[1]);
+      fnCallback(null, arrayString);
     }
   );
 
 
 
-  fnCallback(null, arrayString);
+
 };
 
 // ! JANGAN DIMODIFIKASI
